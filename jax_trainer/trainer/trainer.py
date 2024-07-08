@@ -185,7 +185,8 @@ class TrainerModule:
         # Prepare PRNG and input
         model_rng = random.PRNGKey(self.trainer_config.seed)
         model_rng, init_rng = random.split(model_rng)
-        # Run model initialization
+        # Run model initialization. returns a dict. Should be only "params", but i suspect
+        #gives way to have it with other stuff
         variables = self.run_model_init(exmp_input, init_rng)
         if isinstance(variables, FrozenDict):
             mutable_variables, params = variables.pop("params")
@@ -373,7 +374,7 @@ class TrainerModule:
         variables = {"params": params}
         mutable_keys = [] if mutable is None else mutable
         if state.mutable_variables is not None:
-            variables.update(
+            variables.update( #this is
                 {k: state.mutable_variables[k] for k in state.mutable_variables.keys()}
             )
             if train:
