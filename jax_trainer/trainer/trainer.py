@@ -388,7 +388,7 @@ class TrainerModule:
             out, mutable_vars = out
         else:
             mutable_vars = None
-        return out, mutable_vars
+        return out, mutable_vars #for pratical purposes, if I don't modify trainstate, mutable_vars = None
 
     def create_training_function(
         self,
